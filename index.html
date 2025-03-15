@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>傻瓜工作室</title>
+    <style>
+        :root {
+            --bg-color: white;
+            --text-color: black;
+            --h2-color: #666;
+            --button-hover-border: black;
+            --x-button-bg: #e8e8e8;
+            --frame-bg: #e8e8e8;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: black;
+                --text-color: white;
+                --h2-color: #aaa;
+                --button-hover-border: white;
+                --x-button-bg: #333;
+                --frame-bg: #333;
+            }
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+
+        h2 {
+            margin-top: 10px;
+            font-size: 1.5em;
+            color: var(--h2-color);
+        }
+
+        .button-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .button-container button {
+            margin: 10px;
+            padding: 2vw 4vw;
+            font-size: 1.5vw;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            transition: border-color 0.3s ease; /* 保留按鈕的邊框過渡 */
+            color: inherit;
+            background-color: #FF0000;
+        }
+
+        .button-container button:nth-child(2) {
+            background-color: var(--x-button-bg);
+        }
+
+        .button-container button:hover {
+            border-color: var(--button-hover-border);
+        }
+
+        /* 淡入動畫 */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.8s ease; /* 所有元素都使用相同的淡入時間 */
+        }
+
+        .fade-in.show {
+            opacity: 1;
+        }
+
+        .frame-container {
+            display: flex;
+            justify-content: space-around;
+            width: 90%;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        .frame {
+            width: 30%;
+            background-color: var(--frame-bg);
+            border-radius: 25px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            /* 移除 .frame 的 opacity 和 transition，改用 .fade-in */
+        }
+
+        .frame-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .frame-content {
+            flex: 1;
+        }
+
+        .frame-content h2 {
+            margin: 5px;
+            font-size: 1em;
+        }
+
+        .frame-text {
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+
+        .video-container {
+            margin-top: 20px;
+             /* 移除 .video-container 的 opacity 和 transition，改用 .fade-in */
+        }
+         .video-container iframe{
+              width: 560px;
+              height: 315px;
+         }
+
+
+        footer {
+          margin-top: auto;
+          padding: 10px;
+          width: 100%;
+          text-align: center;
+          /* 移除 footer 的 opacity 和 transition，改用 .fade-in */
+        }
+
+        .loading-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--frame-bg);
+            padding: 10px 20px;
+            border-radius: 15px;
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-indicator.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .frame-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .frame {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .button-container button {
+                font-size: 4vw;
+                padding: 4vw 6vw;
+            }
+            .video-container iframe{
+                width: 100%;
+                height: auto;
+            }
+
+        }
+    </style>
+    <!-- Loading 指示器的 CSS -->
+    <style>
+        .loading-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>傻瓜工作室</h1>
+        <h2>臺灣工作室，製作影片、遊戲、樂趣:)</h2>
+        <div class="button-container">
+            <button onclick="window.location.href='https://www.youtube.com/@sarguastudiotaiwan'" style="background: linear-gradient(45deg, #FF0000, #FF7F50);">Youtube</button>
+            <button onclick="window.location.href='https://x.com/sarguastudio'" style="background: linear-gradient(45deg, #e8e8e8, #d3d3d3);">X</button>
+            <button onclick="window.open('https://sarguastudio.blogspot.com/', '_blank')" style="background: linear-gradient(45deg, #40e9ff, #1e90ff); color: #000;">Blog</button>
+        </div>
+    </div>
+
+    <!-- 原成員區塊 -->
+    <h1 class="frame-title fade-in">成員</h1>
+    <div class="frame-container" id="original-members">
+        <div class="frame fade-in">
+            <img src="img/guazii1.jpg" alt="圖片 1" class="frame-image" loading="lazy">
+            <div class="frame-content">
+                <h2>我是真瓜子guazii</h2>
+                <p class="frame-text">位置岌岌可危的團長，主要負責技術、剪輯、網站架設，不擅長表演的社恐</p>
+                <a href="https://guazii.sargua.us.kg" style="color: var(--text-color); text-decoration: none;">點我查看瓜子的社交媒體</a>
+            </div>
+        </div>
+        <div class="frame fade-in">
+            <img src="img/sarler1.jpg" alt="圖片 2" class="frame-image" loading="lazy">
+            <div class="frame-content">
+                <h2>傻樂sarler</h2>
+                <p class="frame-text">愛玩minecraft、貓咪大戰爭，主要負責拍片、娛樂效果、遊戲美術，因為時間問題，在團隊不算太活躍</p>
+            </div>
+        </div>
+        <div class="frame fade-in">
+            <img src="img/xiaoyou1.jpg" alt="圖片 3" class="frame-image" loading="lazy">
+            <div class="frame-content">
+                <h2>魈幽</h2>
+                <p class="frame-text">愛畫畫、唱歌、玩原神的團員，負責錄音、音樂、拍片，繪圖</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 增加空白區塊 -->
+    <br>
+    <br>
+    <br>
+
+    <!-- 合作夥伴區塊 -->
+    <h1 class="frame-title fade-in">合作夥伴</h1>
+    <div class="frame-container" id="new-members">
+        <div class="frame fade-in">
+            <img src="img/se80821.jpg" alt="高哥熱蛋" class="frame-image" loading="lazy">
+            <div class="frame-content">
+                <h2>高哥熱蛋(se8082)</h2>
+                <p class="frame-text">從roblox到蛋仔派對，從娛樂效果到技術操作，瓜子拍片時的最佳夥伴</p>
+            </div>
+        </div>
+         <div class="frame fade-in">
+            <div class="frame-content">
+                <h2>秋雨</h2>
+                <p class="frame-text">很有個性的特約繪師，擅長畫可愛風格，是Undertale的鐵粉(瓜子大頭貼就是作品之一)</p>
+            </div>
+        </div>
+    </div>
+    <!-- 增加空白區塊 -->    
+    <br>
+    <br>
+    <br>
+    <!-- 作品區塊 -->
+    <h1 class="frame-title fade-in">作品</h1>
+    <div class="video-container fade-in">
+        <iframe width="941" height="539" src="https://www.youtube.com/embed/VgnUZu6i3CU" title="[合作]萬散動畫 #萬葉 #散兵 #萬散cp #原神 #稻妻 #合作" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    <!-- 版權宣告 -->
+    <footer class="fade-in">
+        &copy;sarguastudio<span id="founding-year"></span> - <span id="current-year"></span>
+    </footer>
+
+    <!-- 取代原有的 loading indicator -->
+    <div class="loading-container" id="loadingIndicator">
+        <div class="loading-spinner"></div>
+        <span>載入中...</span>
+    </div>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        let foundingYear = null;
+        const images = document.querySelectorAll('img');
+
+        // 修改後的載入處理程式碼
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const animatedElements = document.querySelectorAll('.fade-in');
+            let loadedImages = 0;
+            const totalImages = images.length;
+
+            // 顯示載入指示器
+            loadingIndicator.style.display = 'flex';
+
+            // 設定載入超時
+            const timeout = setTimeout(() => {
+                loadingIndicator.style.display = 'none';
+                showAnimations();
+            }, 5000); // 5秒後強制顯示
+
+            // 監聽所有圖片載入
+            images.forEach(img => {
+                if (img.complete) {
+                    imageLoaded();
+                } else {
+                    img.addEventListener('load', imageLoaded);
+                    img.addEventListener('error', imageLoaded);
+                }
+            });
+
+            function imageLoaded() {
+                loadedImages++;
+                if (loadedImages >= totalImages) {
+                    clearTimeout(timeout);
+                    loadingIndicator.style.display = 'none';
+                    showAnimations();
+                }
+            }
+        });
+
+        // 獲取創立年份
+        async function fetchFoundingYear() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/guazii1106/sargua/main/year.txt');
+                if (response.ok) {
+                    foundingYear = parseInt((await response.text()).trim(), 10);
+                    if (!isNaN(foundingYear)) {
+                        document.getElementById('founding-year').textContent = foundingYear;
+                    }
+                }
+            } catch (error) {
+                console.error('讀取年份時發生錯誤:', error);
+            }
+        }
+
+        function showAnimations() {
+            const animatedElements = document.querySelectorAll('.fade-in');
+            animatedElements.forEach((element) => {
+                element.classList.add('show');
+            });
+        }
+
+        // 執行主要流程
+        fetchFoundingYear();
+    </script>
+</body>
+</html>
