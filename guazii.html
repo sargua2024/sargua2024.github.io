@@ -218,9 +218,58 @@
         .button-container.loaded {
             display: flex;
         }
+
+        .announcement {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 12px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 100;
+        }
+
+        .announcement-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 1rem;
+        }
+
+        /* 輪播公告樣式 */
+        .announcement-slider {
+            display: none;
+            animation: fadeEffect 1.5s;
+        }
+
+        @keyframes fadeEffect {
+            from {opacity: 0.4}
+            to {opacity: 1}
+        }
+
+        .announcement.dark-mode {
+            background-color: #2c2c00;
+            color: #ffd700;
+        }
     </style>
 </head>
 <body>
+    <div class="announcement">
+        <div class="announcement-content">
+            <div class="announcement-slider">
+                📢 本人在中國大陸平台之言論為符合平台規定不代表本人政治立場
+            </div>
+            <div class="announcement-slider">
+                🎮 加入我的 Discord 群組，一起來聊天吧!
+            </div>
+            <div class="announcement-slider">
+                🌟 訂閱我的 YouTube 頻道，獲得第一手影片通知！
+            </div>
+            <div class="announcement-slider">
+                📺 術力口影片網路 之影片因平台方爭議暫時下架
+            </div>
+        </div>
+    </div>
     <main>
         <h1>我是真瓜子</h1>
         <p>記得要去我其他平台的帳號看看唷!</p>
@@ -390,6 +439,43 @@
                 showButtons();
             }
         }
+    });
+
+    // 公告輪播功能
+    document.addEventListener('DOMContentLoaded', function() {
+        let slideIndex = 0;
+        const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        function showSlides() {
+            const slides = document.getElementsByClassName("announcement-slider");
+            
+            // 隱藏所有幻燈片
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            
+            // 顯示下一張幻燈片
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 5000); // 每 5 秒切換一次
+        }
+        
+        // 初始化輪播
+        showSlides();
+        
+        // 監聽深色模式變化
+        darkMode.addEventListener('change', e => {
+            const announcement = document.querySelector('.announcement');
+            if (e.matches) {
+                announcement.classList.add('dark-mode');
+            } else {
+                announcement.classList.remove('dark-mode');
+            }
+        });
     });
 </script>
 </body>
