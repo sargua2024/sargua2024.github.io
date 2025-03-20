@@ -134,13 +134,17 @@
 
         .video-container {
             margin-top: 20px;
-             /* 移除 .video-container 的 opacity 和 transition，改用 .fade-in */
+            width: 100%;
+            max-width: 941px; /* 設定最大寬度 */
+            margin-left: auto;
+            margin-right: auto;
         }
-         .video-container iframe{
-              width: 560px;
-              height: 315px;
-         }
 
+        .video-container iframe {
+            width: 100%;
+            height: 56.25vw; /* 保持 16:9 的比例 */
+            max-height: 539px; /* 設定最大高度 */
+        }
 
         footer {
           margin-top: auto;
@@ -265,7 +269,11 @@
             <div class="frame-content">
                 <h2>我是真瓜子guazii</h2>
                 <p class="frame-text">位置岌岌可危的團長，主要負責技術、剪輯、網站架設，不擅長表演的社恐</p>
-                <a href="https://sargua2024.github.io/guazii" style="color: var(--text-color); text-decoration: none;">點我查看瓜子的社交媒體</a>
+                <a href="https://sargua2024.github.io/guazii" 
+                   onclick="handleNavigation(event, 'https://sargua2024.github.io/guazii')" 
+                   style="color: var(--text-color); text-decoration: none;">
+                   點我查看瓜子的社交媒體
+                </a>
             </div>
         </div>
         <div class="frame fade-in">
@@ -298,7 +306,9 @@
                 <h2>高哥熱蛋(se8082)</h2>
                 <p class="frame-text">從roblox到蛋仔派對，從娛樂效果到技術操作，瓜子拍片時的最佳夥伴</p>
             </div>
-</div>
+        </div>
+    </div>
+
     <!-- 增加空白區塊 -->    
     <br>
     <br>
@@ -383,9 +393,31 @@
             });
         }
 
-        function handleNavigation(url) {
-            window.location.href = url;
+        function handleNavigation(event, url) {
+            if (event) {
+                event.preventDefault();
+            }
+            
+            // 獲取所有可見元素
+            const elements = document.querySelectorAll('body > *');
+            
+            // 添加淡出效果
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transition = 'opacity 0.8s ease';
+            });
+            
+            // 等待淡出動畫完成後再導航
+            setTimeout(() => {
+                window.location.href = url;
+            }, 800);
         }
+
+        // 更新按鈕的 onclick 處理
+        document.querySelectorAll('.button-container button').forEach(button => {
+            const url = button.getAttribute('onclick').match(/'([^']+)'/)[1];
+            button.onclick = (e) => handleNavigation(e, url);
+        });
 
         // 執行主要流程
         fetchFoundingYear();
