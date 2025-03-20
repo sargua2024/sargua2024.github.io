@@ -218,6 +218,13 @@
         .show {
             opacity: 1 !important;
         }
+        
+        /* 修改淡出動畫類別 */
+        .fade-out-all {
+            opacity: 0 !important;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+        }
     </style>
     <!-- Loading 指示器的 CSS -->
     <style>
@@ -255,9 +262,9 @@
         <h1>傻瓜工作室</h1>
         <h2>臺灣工作室，製作影片、遊戲、樂趣:)</h2>
         <div class="button-container">
-            <button onclick="handleNavigation('https://www.youtube.com/@sarguastudiotaiwan')" style="background: linear-gradient(45deg, #FF0000, #FF7F50);">Youtube</button>
-            <button onclick="handleNavigation('https://x.com/sarguastudio')" style="background: linear-gradient(45deg, #e8e8e8, #d3d3d3);">X</button>
-            <button onclick="handleNavigation('https://sarguastudio.blogspot.com/')" style="background: linear-gradient(45deg, #40e9ff, #1e90ff); color: #000;">Blog</button>
+            <button onclick="handleNavigation(event, 'https://www.youtube.com/@sarguastudiotaiwan')" style="background: linear-gradient(45deg, #FF0000, #FF7F50);">Youtube</button>
+            <button onclick="handleNavigation(event, 'https://x.com/sarguastudio')" style="background: linear-gradient(45deg, #e8e8e8, #d3d3d3);">X</button>
+            <button onclick="handleNavigation(event, 'https://sarguastudio.blogspot.com/')" style="background: linear-gradient(45deg, #40e9ff, #1e90ff); color: #000;">Blog</button>
         </div>
     </div>
 
@@ -398,26 +405,14 @@
                 event.preventDefault();
             }
             
-            // 獲取所有可見元素
-            const elements = document.querySelectorAll('body > *');
-            
-            // 添加淡出效果
-            elements.forEach(element => {
-                element.style.opacity = '0';
-                element.style.transition = 'opacity 0.8s ease';
-            });
+            // 在 body 元素上添加淡出類別
+            document.body.classList.add('fade-out-all');
             
             // 等待淡出動畫完成後再導航
             setTimeout(() => {
                 window.location.href = url;
             }, 800);
         }
-
-        // 更新按鈕的 onclick 處理
-        document.querySelectorAll('.button-container button').forEach(button => {
-            const url = button.getAttribute('onclick').match(/'([^']+)'/)[1];
-            button.onclick = (e) => handleNavigation(e, url);
-        });
 
         // 執行主要流程
         fetchFoundingYear();
