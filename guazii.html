@@ -61,6 +61,17 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        body.fade-out {
+            opacity: 0;
+            pointer-events: none;
         }
 
         h1 {
@@ -483,6 +494,31 @@
                 showButtons();
             }
         }
+
+        // 在所有內容載入完成後淡入頁面
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+        });
+
+        // 修改所有按鈕的點擊事件
+        document.querySelectorAll('.button-container').forEach(button => {
+            const link = button.closest('a');
+            if (link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.href;
+                    
+                    // 添加淡出效果
+                    document.body.classList.remove('loaded');
+                    document.body.classList.add('fade-out');
+                    
+                    // 等待淡出動畫完成後跳轉
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 500);
+                });
+            }
+        });
     });
 
     // 修改公告輪播的 JavaScript
