@@ -84,7 +84,7 @@
         /* 淡入動畫 */
         .fade-in {
             opacity: 0;
-            transition: opacity 0.8s ease; /* 所有元素都使用相同的淡入時間 */
+            transition: opacity 0.5s ease;
         }
 
         .fade-in.show {
@@ -196,23 +196,23 @@
         /* 添加淡出動畫類別 */
         .fade-out {
             opacity: 0 !important;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.5s ease;
         }
 
         /* 添加順序控制類別 */
         .stage-1 {
             opacity: 0;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.5s ease;
         }
         
         .stage-2 {
             opacity: 0;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.5s ease;
         }
         
         .stage-3 {
             opacity: 0;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.5s ease;
         }
         
         .show {
@@ -222,7 +222,7 @@
         /* 修改淡出動畫類別 */
         .fade-out-all {
             opacity: 0 !important;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.5s ease;
             pointer-events: none;
         }
     </style>
@@ -411,7 +411,7 @@
             // 等待淡出動畫完成後再導航
             setTimeout(() => {
                 window.location.href = url;
-            }, 800);
+            }, 500); // 改為 500 毫秒
         }
 
         // 執行主要流程
@@ -458,7 +458,7 @@
                     stage3Elements.forEach(element => {
                         element.classList.add('show');
                     });
-                }, 800);
+                }, 500); // 改為 500 毫秒
             }
         }
 
