@@ -1,478 +1,83 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>魈傻瓜工作室</title>
+    <title>重新導向中...</title>
     <style>
-        :root {
-            --bg-color: white;
-            --text-color: black;
-            --h2-color: #666;
-            --button-hover-border: black;
-            --x-button-bg: #e8e8e8;
-            --frame-bg: #e8e8e8;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: black;
-                --text-color: white;
-                --h2-color: #aaa;
-                --button-hover-border: white;
-                --x-button-bg: #333;
-                --frame-bg: #333;
-            }
-        }
-
         body {
+            font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
-
-        .container {
-            padding: 20px;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 3em;
-        }
-
-        h2 {
-            margin-top: 10px;
-            font-size: 1.5em;
-            color: var(--h2-color);
-        }
-
-        .button-container {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .button-container button {
-            margin: 10px;
-            padding: 2vw 4vw;
-            font-size: 1.5vw;
-            cursor: pointer;
-            border: 2px solid transparent;
-            border-radius: 30px;
-            transition: border-color 0.3s ease; /* 保留按鈕的邊框過渡 */
-            color: inherit;
-            background-color: #FF0000;
-        }
-
-        .button-container button:nth-child(2) {
-            background-color: var(--x-button-bg);
-        }
-
-        .button-container button:hover {
-            border-color: var(--button-hover-border);
-        }
-
-        /* 淡入動畫 */
-        .fade-in {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .fade-in.show {
-            opacity: 1;
-        }
-
-        .frame-container {
-            display: flex;
-            justify-content: space-around;
-            width: 90%;
-            margin-bottom: 20px;
-            padding: 0 10px;
-        }
-
-        .frame {
-            width: 30%;
-            background-color: var(--frame-bg);
-            border-radius: 25px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            text-align: left;
-            /* 移除 .frame 的 opacity 和 transition，改用 .fade-in */
-        }
-
-        .frame-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-        }
-
-        .frame-content {
-            flex: 1;
-        }
-
-        .frame-content h2 {
-            margin: 5px;
-            font-size: 1em;
-        }
-
-        .frame-text {
-            font-size: 0.9em;
-            color: var(--text-color);
-        }
-
-        .video-container {
-            margin-top: 20px;
-            width: 100%;
-            max-width: 941px; /* 設定最大寬度 */
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .video-container iframe {
-            width: 100%;
-            height: 56.25vw; /* 保持 16:9 的比例 */
-            max-height: 539px; /* 設定最大高度 */
-        }
-
-        footer {
-          margin-top: auto;
-          padding: 10px;
-          width: 100%;
-          text-align: center;
-          /* 移除 footer 的 opacity 和 transition，改用 .fade-in */
-        }
-
-        .loading-indicator {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--frame-bg);
-            padding: 10px 20px;
-            border-radius: 15px;
-            z-index: 1000;
-            transition: opacity 0.3s ease;
-        }
-
-        .loading-indicator.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        @media (max-width: 768px) {
-            .frame-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .frame {
-                width: 100%;
-                margin-bottom: 15px;
-            }
-
-            .button-container button {
-                font-size: 4vw;
-                padding: 4vw 6vw;
-            }
-            .video-container iframe{
-                width: 100%;
-                height: auto;
-            }
-
-        }
-        
-        /* 添加淡出動畫類別 */
-        .fade-out {
-            opacity: 0 !important;
-            transition: opacity 0.5s ease;
-        }
-
-        /* 添加順序控制類別 */
-        .stage-1 {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .stage-2 {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .stage-3 {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .show {
-            opacity: 1 !important;
-        }
-        
-        /* 修改淡出動畫類別 */
-        .fade-out-all {
-            opacity: 0 !important;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-    </style>
-    <!-- Loading 指示器的 CSS -->
-    <style>
-        .loading-container {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            display: none;
-            z-index: 1000;
+            text-align: center;
         }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
             border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
-
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h1 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        .redirect-info {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
-    <div class="container stage-1">
-        <h1>魈傻瓜工作室</h1>
-        <h2>臺灣工作室，製作影片、遊戲、樂趣:)</h2>
-        <div class="button-container">
-            <button onclick="handleNavigation(event, 'https://www.youtube.com/@sarguastudiotaiwan')" style="background: linear-gradient(45deg, #FF0000, #FF7F50);">Youtube</button>
-            <button onclick="handleNavigation(event, 'https://x.com/xiaosargua')" style="background: linear-gradient(45deg, #e8e8e8, #d3d3d3);">X</button>
-            <button onclick="handleNavigation(event, 'https://sarguastudio.blogspot.com/')" style="background: linear-gradient(45deg, #40e9ff, #1e90ff); color: #000;">Blog</button>
+    <div class="container">
+        <h1>正在重新導向...</h1>
+        <div class="spinner"></div>
+        <p>請稍候，正在將您導向新的位置</p>
+        <div class="redirect-info">
+            目標位置: <span id="target-url"></span>
         </div>
-    </div>
-
-    <!-- 成員區塊 -->
-    <h1 class="frame-title stage-2">成員</h1>
-    <div class="frame-container stage-2" id="original-members">
-        <div class="frame fade-in">
-            <img src="img/guazii2.jpg" alt="圖片 1" class="frame-image" loading="lazy">
-            <div class="frame-content">
-                <h2>我是真瓜子guazii</h2>
-                <p class="frame-text">位置岌岌可危的團長，主要負責技術、剪輯、網站架設，不擅長表演的社恐</p>
-                <a href="https://sargua2024.github.io/guazii" 
-                   onclick="handleNavigation(event, 'https://sargua2024.github.io/guazii')" 
-                   style="color: var(--text-color); text-decoration: none;">
-                   點我查看瓜子的社交媒體
-                </a>
-            </div>
-        </div>
-        <div class="frame fade-in">
-            <img src="img/sarler1.jpg" alt="圖片 2" class="frame-image" loading="lazy">
-            <div class="frame-content">
-                <h2>傻樂sarler</h2>
-                <p class="frame-text">愛玩minecraft、貓咪大戰爭，主要負責拍片、娛樂效果、遊戲美術，因為時間問題，在團隊不算太活躍</p>
-            </div>
-        </div>
-        <div class="frame fade-in">
-            <img src="img/xiaoyou1.jpg" alt="圖片 3" class="frame-image" loading="lazy">
-            <div class="frame-content">
-                <h2>魈幽</h2>
-                <p class="frame-text">愛畫畫、唱歌、玩原神的團員，負責錄音、音樂、拍片，繪圖</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- 增加空白區塊 -->
-    <br>
-    <br>
-    <br>
-
-    <!-- 合作夥伴區塊 -->
-    <h1 class="frame-title stage-2">合作夥伴</h1>
-    <div class="frame-container stage-2" id="new-members">
-        <div class="frame fade-in">
-            <img src="img/se80821.jpg" alt="高哥熱蛋" class="frame-image" loading="lazy">
-            <div class="frame-content">
-                <h2>高哥熱蛋(se8082)</h2>
-                <p class="frame-text">從roblox到蛋仔派對，從娛樂效果到技術操作，瓜子拍片時的最佳夥伴</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- 增加空白區塊 -->    
-    <br>
-    <br>
-    <br>
-    <!-- 作品區塊 -->
-    <h1 class="frame-title stage-3">作品</h1>
-    <div class="video-container stage-3">
-        <iframe width="941" height="539" src="https://www.youtube.com/embed/VgnUZu6i3CU" title="[合作]萬散動畫 #萬葉 #散兵 #萬散cp #原神 #稻妻 #合作" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
-
-    <!-- 版權宣告 -->
-    <footer class="stage-3">
-        &copy;sarguastudio<span id="founding-year"></span> - <span id="current-year"></span>
-    </footer>
-
-    <!-- 取代原有的 loading indicator -->
-    <div class="loading-container" id="loadingIndicator">
-        <div class="loading-spinner"></div>
-        <span>載入中...</span>
     </div>
 
     <script>
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        let foundingYear = null;
-        const images = document.querySelectorAll('img');
-
-        // 修改後的載入處理程式碼
-        document.addEventListener('DOMContentLoaded', function() {
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const animatedElements = document.querySelectorAll('.fade-in');
-            let loadedImages = 0;
-            const totalImages = images.length;
-
-            // 顯示載入指示器
-            loadingIndicator.style.display = 'flex';
-
-            // 設定載入超時
-            const timeout = setTimeout(() => {
-                loadingIndicator.style.display = 'none';
-                showAnimations();
-            }, 5000); // 5秒後強制顯示
-
-            // 監聽所有圖片載入
-            images.forEach(img => {
-                if (img.complete) {
-                    imageLoaded();
-                } else {
-                    img.addEventListener('load', imageLoaded);
-                    img.addEventListener('error', imageLoaded);
-                }
-            });
-
-            function imageLoaded() {
-                loadedImages++;
-                if (loadedImages >= totalImages) {
-                    clearTimeout(timeout);
-                    loadingIndicator.style.display = 'none';
-                    showAnimations();
-                }
-            }
-        });
-
-        // 獲取創立年份
-        async function fetchFoundingYear() {
-            try {
-                const response = await fetch('https://raw.githubusercontent.com/guazii1106/sargua/main/year.txt');
-                if (response.ok) {
-                    foundingYear = parseInt((await response.text()).trim(), 10);
-                    if (!isNaN(foundingYear)) {
-                        document.getElementById('founding-year').textContent = foundingYear;
-                    }
-                }
-            } catch (error) {
-                console.error('讀取年份時發生錯誤:', error);
-            }
-        }
-
-        function showAnimations() {
-            const animatedElements = document.querySelectorAll('.fade-in');
-            animatedElements.forEach((element) => {
-                element.classList.add('show');
-            });
-        }
-
-        function handleNavigation(event, url) {
-            if (event) {
-                event.preventDefault();
-            }
-            
-            // 在 body 元素上添加淡出類別
-            document.body.classList.add('fade-out-all');
-            
-            // 等待淡出動畫完成後再導航
-            setTimeout(() => {
-                window.location.href = url;
-            }, 500); // 改為 500 毫秒
-        }
-
-        // 執行主要流程
-        fetchFoundingYear();
-    </script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        const stage1Elements = document.querySelectorAll('.stage-1');
-        const stage2Elements = document.querySelectorAll('.stage-2');
-        const stage3Elements = document.querySelectorAll('.stage-3');
-        let loadedImages = 0;
-        const totalImages = images.length;
-
-        // 顯示載入指示器
-        loadingIndicator.style.display = 'flex';
-
-        // 立即顯示第一階段元素
-        stage1Elements.forEach(element => {
-            element.classList.add('show');
-        });
-
-        // 監聽所有圖片載入
-        images.forEach(img => {
-            if (img.complete) {
-                imageLoaded();
-            } else {
-                img.addEventListener('load', imageLoaded);
-                img.addEventListener('error', imageLoaded);
-            }
-        });
-
-        function imageLoaded() {
-            loadedImages++;
-            if (loadedImages >= totalImages) {
-                loadingIndicator.style.display = 'none';
-                // 圖片載入完成後顯示第二階段元素
-                stage2Elements.forEach(element => {
-                    element.classList.add('show');
-                });
-                
-                // 延遲顯示第三階段元素
-                setTimeout(() => {
-                    stage3Elements.forEach(element => {
-                        element.classList.add('show');
-                    });
-                }, 500); // 改為 500 毫秒
-            }
-        }
-
-        // 設定載入超時
-        const timeout = setTimeout(() => {
-            loadingIndicator.style.display = 'none';
-            // 超時後顯示所有元素
-            [stage1Elements, stage2Elements, stage3Elements].forEach(elements => {
-                elements.forEach(element => {
-                    element.classList.add('show');
-                });
-            });
-        }, 5000);
-    });
+        // 獲取當前頁面的完整路徑（包括查詢參數和錨點）
+        const currentPath = window.location.pathname + window.location.search + window.location.hash;
+        
+        // 建構新的 URL
+        const newUrl = 'http://xiaosargua.dpdns.org' + currentPath;
+        
+        // 顯示目標 URL
+        document.getElementById('target-url').textContent = newUrl;
+        
+        // 立即重新導向
+        window.location.replace(newUrl);
+        
+        // 備用方案：如果 replace 沒有生效，使用 href
+        setTimeout(function() {
+            window.location.href = newUrl;
+        }, 1000);
     </script>
 </body>
 </html>
