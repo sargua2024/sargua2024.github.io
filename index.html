@@ -55,23 +55,25 @@
     <div class="container">
         <h1>正在重新導向...</h1>
         <div class="spinner"></div>
-        <p>請稍候，正在將您導向到新官網</p>
+        <p>請稍候，正在將您導向新的位置</p>
         <div class="redirect-info">
+            目標位置: <span id="target-url"></span>
+        </div>
     </div>
 
     <script>
         // 獲取當前頁面的完整路徑（包括查詢參數和錨點）
         const currentPath = window.location.pathname + window.location.search + window.location.hash;
-        
+
         // 建構新的 URL
         const newUrl = 'http://xiaosargua.dpdns.org' + currentPath;
-        
+
         // 顯示目標 URL
         document.getElementById('target-url').textContent = newUrl;
-        
+
         // 立即重新導向
         window.location.replace(newUrl);
-        
+
         // 備用方案：如果 replace 沒有生效，使用 href
         setTimeout(function() {
             window.location.href = newUrl;
