@@ -1,231 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>下載瓜子影片</title>
-  <style>
-    :root {
-      /* 預設的淺色模式顏色 */
-      --bg-color: #f0f0f0; /* 淺灰色背景 */
-      --text-color: #333; /* 深灰色文字 */
-      --button-bg: white; /* 白色按鈕背景 */
-      --button-hover-bg: #d0e7ff; /* 淺藍色按鈕懸停背景 */
-      --link-color: #0078d4; /* Windows 11 藍色連結 */
-      --border-color: rgba(0, 0, 0, 0.1); /* 細邊框顏色 */
-    }
-
-    /* 深色模式顏色 */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-color: #121212; /* 深灰色背景 */
-        --text-color: #f0f0f0; /* 淺灰色文字 */
-        --button-bg: #333; /* 深灰色按鈕背景 */
-        --button-hover-bg: #4a4a4a; /* 稍亮的深灰色按鈕懸停背景 */
-        --link-color: #90caf9; /* 較淺的藍色連結 */
-        --border-color: rgba(255, 255, 255, 0.1); /* 淺色細邊框 */
-      }
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: var(--bg-color); /* 使用變數 */
-      color: var(--text-color); /* 使用變數 */
-      padding-top: 20px;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: row;
-      border: 1px solid var(--border-color); /* 使用變數 */
-      width: 90%;
-      max-width: 800px;
-      height: auto;
-      overflow: hidden;
-      background: white;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      background-color: var(--button-bg); /* 使用變數 */
-    }
-
-    .left {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-right: 1px solid var(--border-color); /* 使用變數 */
-    }
-
-    /* ... 其餘樣式保持不變，但將顏色值替換為變數 ... */
-    .left img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
-
-    .right {
-      flex: 2;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .title {
-        font-size: 18px;
-        font-weight: 600; /* 稍微加粗 */
-        margin-bottom: 10px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: var(--text-color); /* 使用變數 */
-    }
-
-    .buttons {
-     display: flex;
-     gap: 10px;
-    }
-.buttons button, .download {
-    width: 100px;
-    height: 40px;
-    border: 1px solid var(--border-color);
-    background-color: var(--button-bg);
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 6px;
-    transition: 0.3s;
-    color: var(--text-color);
-    font-weight: 500;
-}
-    .buttons button:nth-child(1) {
-      background-color: var(--link-color); /* 使用變數 */
-      color: white;
-      border-color: var(--link-color); /* 使用變數 */
-    }
-
-    .buttons button:hover,
-    .download:hover {
-      background-color: var(--button-hover-bg); /* 使用變數 */
-      border-color: rgba(0, 0, 0, 0.3);
-    }
-
-    .download {
-      align-self: flex-end;
-    }
-
-    .footer {
-      text-align: center;
-      width: 90%;
-      font-size: 14px;
-      color: var(--text-color); /* 使用變數 */
-      padding: 20px 0;
-    }
-
-    .footer a {
-      color: var(--link-color); /* 使用變數 */
-      text-decoration: none;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        flex-direction: column;
-        width: 95%;
-      }
-
-      .left {
-        border-right: none;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重新導向中...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h1 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        .redirect-info {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
-  <h1 style="text-align: center; color: var(--text-color); margin: 20px 0;">下載瓜子影片</h1>
-  <h3 style="text-align: center; color: var(--text-color); margin: 20px 0;">標註為[熱門]之影片下載前須解鎖</h3>
-  <div class="container">
-    <div class="left">
-        <img src="img/sddefault.png" alt="圖片1">
-    </div>
-    <div class="right">
-        <div class="title">[熱門]晚安大香蕉</div>
-        <div class="buttons">
-            <a href="https://youtu.be/_55U5VgI5SQ" target="_blank"><button>在Youtube上觀看</button></a>
-            <a href="https://www.toneden.io/guazii1106/post/%E4%B8%8B%E8%BC%89%E5%BD%B1%E7%89%87" target="_blank"><button>下載</button></a>
+    <div class="container">
+        <h1>正在重新導向...</h1>
+        <div class="spinner"></div>
+        <p>請稍候，正在將您導向新的位置</p>
+        <div class="redirect-info">
+            目標位置: <span id="target-url"></span>
         </div>
     </div>
-  </div>
-  <div class="container">
-    <div class="left">
-        <img src="img/為什麼我消失這麼久.png" alt="為什麼我會消失這麼久">
-    </div>
-    <div class="right">
-        <div class="title">為什麼我會消失這麼久</div>
-        <div class="buttons">
-            <a href="https://youtu.be/2YLwHtKMgRo" target="_blank"><button>在Youtube上觀看</button></a>
-            <a href="https://github.com/guazii1106/guazii/releases/download/eeeeeee/video.mp4" target="_blank"><button>下載</button></a>
-        </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="left">
-        <img src="img/hqdefault.webp" alt="關於這個頻道">
-    </div>
-    <div class="right">
-        <div class="title">關於這個頻道</div>
-        <div class="buttons">
-            <a href="https://youtu.be/wFuLYEGnRBQ" target="_blank"><button>在Youtube上觀看</button></a>
-            <a href="https://github.com/guazii1106/guazii/releases/download/eeeeee/video.mp4" target="_blank"><button>下載</button></a>
-        </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="left">
-        <img src="https://raw.githubusercontent.com/guazii1106/guazii/refs/heads/main/download/img/maxresdefault.webp" alt="圖片1">
-    </div>
-    <div class="right">
-        <div class="title">[cc字幕]roblox塔防新巔峰之作，腦力與手速的終極考驗！[好玩但冷門ep001]</div>
-        <div class="buttons">
-            <a href="https://youtu.be/YFClEGD9cFc" target="_blank"><button>在Youtube上觀看</button></a>
-            <a href="https://github.com/guazii1106/guazii/releases/download/eee/vidio.mp4" target="_blank"><button>下載</button></a>
-        </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="left">
-        <img src="img/maxresdefault.jpg" alt="圖片2">
-    </div>
-    <div class="right">
-        <div class="title">roblox的doors但是超級加速版!!多了超多新怪物一起追殺我!😭😭😭</div>
-        <div class="buttons">
-            <a href="https://youtu.be/ggDZGqYaw64" target="_blank"><button>在Youtube上觀看</button></a>
-            <a href="https://github.com/guazii1106/guazii/releases/download/eeee/vidio.mp4" target="_blank"><button>下載</button></a>
-        </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="left">
-        <img src="img/maxresdefault (1).jpg" alt="圖片3">
-    </div>
-    <div class="right">
-        <div class="title">[攻略]只要用[這招]就能在pets go賺超多鑽石?!</div>
-        <div class="buttons">
-            <a href="https://youtu.be/SC4zTwlj4lM" target="_blank"><button>在Youtube上觀看</button></a>
-            <a href="https://github.com/guazii1106/guazii/releases/download/eeeee/vidio.mp4" target="_blank"><button>下載</button></a>
-        </div>
-    </div>
-  </div>
-  <div class="footer">
-    轉載需標註youtube原影片連結與作者為:我是真瓜子，本人有權拒絕他人轉載，如有問題請透過電子郵件詢問:
-    <a href="mailto:guazii1106@sargua.us.kg">guazii1106@sargua.us.kg</a><br> ~其他影片還在準備中，敬請期待~
-  </div>
+
+    <script>
+        // 獲取當前頁面的完整路徑（包括查詢參數和錨點）
+        const currentPath = window.location.pathname + window.location.search + window.location.hash;
+        
+        // 建構新的 URL
+        const newUrl = 'http://xiaosargua.dpdns.org' + currentPath;
+        
+        // 顯示目標 URL
+        document.getElementById('target-url').textContent = newUrl;
+        
+        // 立即重新導向
+        window.location.replace(newUrl);
+        
+        // 備用方案：如果 replace 沒有生效，使用 href
+        setTimeout(function() {
+            window.location.href = newUrl;
+        }, 1000);
+    </script>
 </body>
 </html>
