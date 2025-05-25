@@ -1,566 +1,83 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我是真瓜子</title>
-    <link rel="icon" type="image/x-icon" href="img/guazii2.jpg">
+    <title>重新導向中...</title>
     <style>
-        :root {
-            /* 淺色模式顏色 */
-            --bg-color: #f0f0f0;
-            --text-color: #333;
-            --button-bg: white;
-            --button-hover-border: rgba(0, 0, 0, 0.3);
-            --border-color: rgba(0, 0, 0, 0.1);
-
-            /* 深色模式顏色 */
-            --dark-bg-color: #121212;
-            --dark-text-color: #f0f0f0;
-            --dark-button-bg: #333;
-            --dark-button-hover-border: rgba(255, 255, 255, 0.3);
-            --dark-border-color: rgba(255, 255, 255, 0.1);
-
-            /* 按鈕特定顏色 */
-            --button1-bg: #e63946;
-            --button2-bg: #000000;
-            --button3-bg: #6a0dad;
-            --button4-bg: #c0c0c0;
-            --button5-bg: #ffffff;
-            --button6-bg: #6441A5;
-            --button7-bg: #87CEEB;
-            --button8-bg: #FFC0CB;
-            --button9-bg: #FF61EF;
-
-            /* 深色模式按鈕文字顏色 */
-            --dark-button2-text: var(--dark-text-color);
-            --dark-button4-text: var(--dark-text-color);
-            --dark-button5-text: var(--dark-text-color);
-            --dark-button8-text: var(--dark-text-color);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: var(--dark-bg-color);
-                --text-color: var(--dark-text-color);
-                --button-bg: var(--dark-button-bg);
-                --button-hover-border: var(--dark-button-hover-border);
-                --border-color: var(--dark-border-color);
-            }
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            height: 100vh;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        body.loaded {
-            opacity: 1;
-        }
-
-        body.fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        h1 {
-            margin-top: 20px;
-            font-size: 2.5em;
-            font-weight: 600;
-        }
-
-        p {
-            font-size: 1.1em;
-            margin-bottom: 20px;
-        }
-
-        .button-grid {
-            display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            align-items: stretch; /* 使按鈕高度一致 */
-            gap: 10px;
-            max-width: 80%;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
             margin: 20px auto;
         }
-        .button-grid a{
-             text-decoration: none;
-        }
-
-        .button-container {
-            /* 通用樣式 */
-            display: none; /* 初始隱藏按鈕 */
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--button-bg);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            width: 100px; /* 使用 px */
-            height: 100px;
-            font-size: 18px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease, border-color 0.3s ease; /* 合併 transition */
-        }
-
-        .button-container:hover {
-            border-color: var(--button-hover-border);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .button-container img {
-            width: 48px;  /* 統一設定更大的尺寸 */
-            height: 48px;
-            object-fit: contain;  /* 改用 contain 以確保圖片不會被裁切 */
-            border-radius: 8px;   /* 稍微增加圓角 */
-            margin-bottom: 8px;   /* 調整間距 */
-            padding: 4px;         /* 添加內間距 */
-        }
-
-        .button-container span {
-            font-size: 14px;
-            text-align: center;
-            overflow-wrap: break-word; /* 更好的斷字方式 */
-        }
-
-        /* 按鈕特定顏色 */
-        .button1 { background-color: var(--button1-bg); }
-        .button2 { background-color: var(--button2-bg); color: white; }
-        .button3 { background-color: var(--button3-bg); }
-        .button4 { background-color: var(--button4-bg); color: black; }
-        .button5 { background-color: var(--button5-bg); color: black; }
-        .button6 { background-color: var(--button6-bg); }
-        .button7 { background-color: var(--button7-bg); }
-        .button8 { background-color: var(--button8-bg); color: white; }
-        .button9 { background-color: var(--button9-bg); color: black; }
-
-        /* 深色模式下的按鈕顏色調整 */
-        @media (prefers-color-scheme: dark) {
-            .button2 { color: var(--dark-button2-text); }
-            .button4, .button5 { color: var(--dark-button4-text); }
-            .button8 {color: var(--dark-button8-text);}
-        }
-
-       /* 淡入動畫 */
-        .fade-in {
-            opacity: 0;
-            transition: opacity 0.5s ease; /* 動畫時間與延遲時間相同 */
-        }
-
-        .fade-in.show {
-            opacity: 1;
-        }
-
-        /* Loading 指示器樣式 */
-        .loading-container {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            display: none;
-            z-index: 1000;
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
-        /* 載入動畫容器樣式修改 */
-        .button-loading {
-            width: 100px;
-            height: 100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--button-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            opacity: 1;  /* 改為預設顯示 */
+        h1 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
-
-        .button-spinner {
-            width: 30px;
-            height: 30px;
-            border: 3px solid var(--border-color);
-            border-radius: 50%;
-            border-top-color: var(--text-color);
-            animation: spin 1s linear infinite;
-            margin-bottom: 8px;
+        p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
         }
-
-        /* 載入文字 */
-        .button-loading span {
-            font-size: 14px;
-            color: var(--text-color);
-        }
-
-        /* 顯示已載入的按鈕 */
-        .button-container.loaded {
-            display: flex;
-        }
-
-        .announcement {
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 12px;
-            text-align: center;
-            width: 100%;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 100;
-        }
-
-        .announcement-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            font-size: 1rem;
-            position: relative;
-            height: 24px; /* 設定固定高度避免跳動 */
-        }
-
-        /* 輪播公告樣式 */
-        .announcement-slider {
-            position: absolute;
-            width: 100%;
-            left: 0;
-            opacity: 0;
-            visibility: hidden; /* 改用 visibility 來控制顯示/隱藏 */
-            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-        }
-
-        .announcement-slider.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        @keyframes fadeEffect {
-            from {opacity: 0.4}
-            to {opacity: 1}
-        }
-
-        .announcement.dark-mode {
-            background-color: #2c2c00;
-            color: #ffd700;
-        }
-
-        .announcement-nav {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            gap: 8px;
-        }
-
-        .announcement-nav button {
-            background: none;
-            border: none;
-            color: inherit;
-            font-size: 18px;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-
-        .announcement-nav button:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        /* 深色模式按鈕樣式 */
-        .dark-mode .announcement-nav button:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        .redirect-info {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
-    <div class="announcement">
-    <div class="announcement-content">
-        <div class="announcement-slider">
-            📢 本人在中國大陸平臺之言論為配合平台規定皆「不」代表本人政治立場
-        </div>
-        <div class="announcement-slider">
-            🎮 加入我的 Discord 群組，享受觀眾福利
-        </div>
-        <div class="announcement-slider">
-            🌟 訂閱我的 YouTube 頻道，獲得第一手影片通知！
-        </div>
-        <div class="announcement-slider">
-            📺 術力口影片網路 之部分影片因平臺方爭議暫時下架
-        </div>
-        <div class="announcement-nav">
-            <button onclick="changeSlide(-1)">&lt;</button>
-            <button onclick="changeSlide(1)">&gt;</button>
+    <div class="container">
+        <h1>正在重新導向...</h1>
+        <div class="spinner"></div>
+        <p>請稍候，正在將您導向新的位置</p>
+        <div class="redirect-info">
+            目標位置: <span id="target-url"></span>
         </div>
     </div>
-</div>
-    <main>
-        <h1>我是真瓜子</h1>
-        <p>記得要去我其他平台的帳號看看唷!</p>
 
-        <div class="button-grid">
-            <!-- YouTube 按鈕 -->
-            <div class="button-loading fade-in" data-button="youtube">
-                <div class="button-spinner"></div>
-                <span>載入中...</span>
-            </div>
-            <a href="https://www.youtube.com/channel/UC9siovgUtZfNqcgxELmVZFA" target="_blank" class="button-container button1 fade-in">
-                <img src="img/youtube.svg" alt="YouTube 平台圖示">
-                <span>YouTube</span>
-            </a>
-
-            <!-- TikTok 按鈕 -->
-            <div class="button-loading fade-in" data-button="tiktok">
-                <div class="button-spinner"></div>
-                <span>載入中...</span>
-            </div>
-            <a href="https://www.tiktok.com/@guazii_1106" target="_blank" class="button-container button2 fade-in">
-                <img src="img/tiktok.png" alt="TikTok 平台圖示">
-                <span>TikTok</span>
-            </a>
-
-            <!-- Discord 按鈕 -->
-            <div class="button-loading fade-in" data-button="discord">
-                <div class="button-spinner"></div>
-                <span>載入中...</span>
-            </div>
-            <a href="https://discord.gg/4buH2Pxc" target="_blank" class="button-container button3 fade-in">
-                <img src="img/discord.png" alt="Discord 平台圖示">
-                <span>discord群組</span>
-            </a>
-
-            <!-- ROBLOX 按鈕 -->
-            <div class="button-loading fade-in" data-button="roblox">
-                <div class="button-spinner"></div>
-                <span>載入中...</span>
-            </div>
-            <a href="https://www.roblox.com/communities/35182470/unnamed#!/about" target="_blank" class="button-container button4 fade-in">
-                <img src="img/roblox.png" alt="ROBLOX 平台圖示">
-                <span>ROBLOX群組</span>
-            </a>
-
-            <!-- 推特(X) 按鈕 -->
-            <div class="button-loading fade-in" data-button="x">
-                <div class="button-spinner"></div>
-                <span>載入中...</span>
-            </div>
-            <a href="https://x.com/sarguastudio" target="_blank" class="button-container button5 fade-in">
-                <img src="img/x.png" alt="推特(X) 平台圖示">
-                <span>推特(X)</span>
-            </a>
-
-            <!-- Twitch 按鈕 -->
-            <div class="button-loading fade-in" data-button="twitch">
-                <div class="button-spinner"></div>
-                <span>載入中...</span>
-            </div>
-            <a href="https://www.twitch.tv/guazii1106" target="_blank" class="button-container button6 fade-in">
-                <img src="img/twitch.png" alt="Twitch 平台圖示">
-                <span>Twitch</span>
-            </a>
-
-            <!-- Bilibili 按鈕 -->
-            <div class="button-loading fade-in" data-button="bilibili">
-                <div class="button-spinner"></div>
-                <span>載入中...</span>
-            </div>
-            <a href="https://space.bilibili.com/3546687171725977" target="_blank" class="button-container button7 fade-in">
-                <img src="img/bilibili.png" alt="Bilibili 平台圖示">
-                <span>哔哩哔哩</span>
-            </a>
-
-            <!-- Odysee 按鈕 -->
-            <div class="button-loading fade-in" data-button="odysee">
-                <div class="button-spinner"></div>
-                <span>載入中...</span>
-            </div>
-            <a href="https://odysee.com/@guazii1106:d" target="_blank" class="button-container button8 fade-in">
-                <img src="img/odysee.png" alt="Odysee 平台圖示">
-                <span>Odysee</span>
-
-            <!-- 下載影片 按鈕 -->
-            <div class="button-loading fade-in" data-button="download">
-                <div class="button-spinner"></div>
-                <span>載入中...</span>
-            </div>
-            <a href="https://sargua2024.github.io/download/guaziivideo" target="_blank" class="button-container button4 fade-in">
-                <img src="img/p1.png" alt="下載影片 圖示">
-                <span>下載我的影片</span>
-            </a>
-        </div>
-    </main>
-    <div class="loading-container" id="loadingIndicator">
-        <div class="loading-spinner"></div>
-        <span>載入中...</span>
-    </div>
-    <footer class="footer">
-        &copy; sarguastudio
-    </footer>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        const buttons = document.querySelectorAll('.button-container');
-        const loadingElements = document.querySelectorAll('.button-loading');
-        let loadedImages = 0;
-        const totalImages = document.querySelectorAll('img').length;
-
-        // 確保一開始只顯示載入動畫
-        buttons.forEach(button => {
-            button.style.display = 'none';
-        });
+        // 獲取當前頁面的完整路徑（包括查詢參數和錨點）
+        const currentPath = window.location.pathname + window.location.search + window.location.hash;
         
-        function showButtons() {
-            // 對每個按鈕和對應的載入動畫進行切換
-            buttons.forEach((button, index) => {
-                const loading = loadingElements[index];
-                
-                // 淡出載入動畫
-                loading.style.opacity = '0';
-                
-                // 淡入實際按鈕
-                setTimeout(() => {
-                    loading.style.display = 'none';
-                    button.style.display = 'flex';
-                    button.style.opacity = '0';
-                    
-                    // 確保 DOM 更新後再添加過渡效果
-                    requestAnimationFrame(() => {
-                        button.style.opacity = '1';
-                        button.classList.add('show');
-                    });
-                }, 300);
-            });
-            
-            // 隱藏主載入指示器
-            loadingIndicator.style.display = 'none';
-        }
-
-        // 監聽圖片載入
-        document.querySelectorAll('img').forEach(img => {
-            if (img.complete) {
-                imageLoaded();
-            } else {
-                img.addEventListener('load', imageLoaded);
-                img.addEventListener('error', imageLoaded);
-            }
-        });
-
-        function imageLoaded() {
-            loadedImages++;
-            if (loadedImages >= totalImages) {
-                loadingIndicator.style.display = 'none';
-                showButtons();
-            }
-        }
-
-        // 在所有內容載入完成後淡入頁面
-        window.addEventListener('load', function() {
-            document.body.classList.add('loaded');
-        });
-
-        // 修改所有按鈕的點擊事件
-        document.querySelectorAll('.button-container').forEach(button => {
-            const link = button.closest('a');
-            if (link) {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const href = this.href;
-                    
-                    // 添加淡出效果
-                    document.body.classList.remove('loaded');
-                    document.body.classList.add('fade-out');
-                    
-                    // 等待淡出動畫完成後跳轉
-                    setTimeout(() => {
-                        window.location.href = href;
-                    }, 500);
-                });
-            }
-        });
-    });
-
-    // 修改公告輪播的 JavaScript
-    document.addEventListener('DOMContentLoaded', function() {
-        let slideIndex = 0;
-        const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
-        let slideTimer; // 用於控制自動輪播的計時器
+        // 建構新的 URL
+        const newUrl = 'http://xiaosargua.dpdns.org' + currentPath;
         
-        function changeSlide(direction) {
-            // 清除現有的計時器
-            clearTimeout(slideTimer);
-            
-            const slides = document.getElementsByClassName("announcement-slider");
-            const currentSlide = slides[slideIndex];
-            
-            // 計算新的索引
-            let newIndex = slideIndex + direction;
-            if (newIndex >= slides.length) {
-                newIndex = 0;
-            }
-            if (newIndex < 0) {
-                newIndex = slides.length - 1;
-            }
-            
-            // 先將當前幻燈片淡出
-            currentSlide.classList.remove('active');
-            
-            // 更新索引
-            slideIndex = newIndex;
-            
-            // 將新幻燈片淡入
-            slides[slideIndex].classList.add('active');
-            
-            // 重新啟動自動輪播
-            slideTimer = setTimeout(() => changeSlide(1), 5000);
-        }
+        // 顯示目標 URL
+        document.getElementById('target-url').textContent = newUrl;
         
-        // 將 changeSlide 函數設為全域可用
-        window.changeSlide = changeSlide;
+        // 立即重新導向
+        window.location.replace(newUrl);
         
-        // 初始化輪播
-        changeSlide(0);
-        
-        // 監聽深色模式變化
-        darkMode.addEventListener('change', e => {
-            const announcement = document.querySelector('.announcement');
-            if (e.matches) {
-                announcement.classList.add('dark-mode');
-            } else {
-                announcement.classList.remove('dark-mode');
-            }
-        });
-    });
-</script>
+        // 備用方案：如果 replace 沒有生效，使用 href
+        setTimeout(function() {
+            window.location.href = newUrl;
+        }, 1000);
+    </script>
 </body>
 </html>
